@@ -1,0 +1,15 @@
+---
+- hosts: web
+  remote_user: red
+  tasks:
+     - name: Unarchive WLS Installer
+       unarchive:
+        src: /software/bea/Middleware/wls/12.2.1.3/fmw_12.2.1.3.0_wls.zip
+        dest: /software/bea/Middleware/wls/12.2.1.3/
+     - name: copy install scripts and properties
+       copy:
+        src: /software/bea/Middleware/wls/{{items}}
+        dest: /software/bea/Middleware/wls/12.2.1.3/
+        mode: "a+r"
+       with_items:
+        [wls_install.rsp,oraInst.loc]
